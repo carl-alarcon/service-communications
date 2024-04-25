@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: hello-service
+  name: hello-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-service
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: hello-service
+    spec:
+      containers:
+      - image: hello:0.0.1-SNAPSHOT
+        name: hello-service
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: hello-service
+  name: hello-service
+spec:
+  ports:
+  - name: 9900-9900
+    port: 9900
+    protocol: TCP
+    targetPort: 9900
+  selector:
+    app: hello-service
+  type: LoadBalancer
+status:
+  loadBalancer: {}

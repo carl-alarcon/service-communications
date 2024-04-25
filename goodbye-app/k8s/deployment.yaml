@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: goodbye-service
+  name: goodbye-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: goodbye-service
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: goodbye-service
+    spec:
+      containers:
+      - image: goodbye:0.0.1-SNAPSHOT
+        name: goodbye-service
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: goodbye-service
+  name: goodbye-service
+spec:
+  ports:
+  - name: 9800-9800
+    port: 9800
+    protocol: TCP
+    targetPort: 9800
+  selector:
+    app: goodbye-service
+  type: LoadBalancer
+status:
+  loadBalancer: {}
